@@ -1,6 +1,6 @@
 <?php $page_title = "Edit Product ★ Productive"; ?>
 <?php require "view/blocks/page_start.php"; ?>
-<h1>Edit Product</h1>
+<h1>Edit Product Information</h1>
 <form onsubmit="onEditProductFormSubmitted(event);">
 	<div class="field">
 		<label for="name-field">Product Name</label>

@@ -40,6 +40,11 @@
 	</div>
 
 	<div class="field">
+		<label for="weight-field">Weight (g)</label>
+		<input type="number" id="weight-field" min="0" step=".01">
+	</div>
+
+	<div class="field">
 		<label for="stock-field">Stock</label>
 		<input type="number" id="stock-field" min="0" required>
 	</div>

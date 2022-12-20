@@ -9,47 +9,36 @@ function onProductsLoaded(request) {
 	productsTable.innerHTML = "";
 
 	var products = JSON.parse(request.responseText);
+		for (var i = 0; i < products.length; i++) {
+			if (products[i].active == 1) {	
+				var productRow = document.createElement("tr");
+				productsTable.appendChild(productRow);
 
-	for (var i = 0; i < products.length; i++) {
-		var productRow = document.createElement("tr");
-		productsTable.appendChild(productRow);
+				var skuCell = document.createElement("td");
+				skuCell.innerText = products[i].sku;
+				productRow.appendChild(skuCell);
 
-		var skuCell = document.createElement("td");
-		skuCell.innerText = products[i].sku;
-		productRow.appendChild(skuCell);
+				var nameCell = document.createElement("td");
+				nameCell.innerText = products[i].name;
+				productRow.appendChild(nameCell);
 
-		var nameCell = document.createElement("td");
-		nameCell.innerText = products[i].name;
-		productRow.appendChild(nameCell);
+				var priceCell = document.createElement("td");
+				priceCell.innerText = products[i].price ? "CHF " + products[i].price : "";
+				productRow.appendChild(priceCell);
 
-		var activeCell = document.createElement("td");
-		activeCell.innerText = products[i].active;
-		productRow.appendChild(activeCell);
-
-		var priceCell = document.createElement("td");
-		priceCell.innerText = products[i].price ? "CHF " + products[i].price : "";
-		productRow.appendChild(priceCell);
-
-		var stockCell = document.createElement("td");
-		stockCell.innerText = products[i].stock;
-		productRow.appendChild(stockCell);
-
-		var actionsCell = document.createElement("td");
-		productRow.appendChild(actionsCell);
-
-		var deleteButton = document.createElement("button");
-		deleteButton.innerText = "Delete";
-		deleteButton.onclick = onDeleteButtonPressed;
-		deleteButton.className = "destructive";
-		deleteButton.setAttribute("product-sku", products[i].sku);
-		actionsCell.appendChild(deleteButton);
-
-		var editButton = document.createElement("a");
-		editButton.innerText = "Edit";
-		editButton.className = "button";
-		editButton.href = "product.php?sku=" + products[i].sku;
-		actionsCell.appendChild(editButton);
-	}
+				if (products[i].stock <= 3) {
+					var stockCell = document.createElement("td");
+					stockCell.innerText = products[i].stock;
+					stockCell.className = "stock";
+					productRow.appendChild(stockCell);
+				}
+				else {
+					var stockCell = document.createElement("td");
+					stockCell.innerText = products[i].stock;
+					productRow.appendChild(stockCell);
+				}
+			}
+		}
 }
 
 /**
@@ -62,7 +51,7 @@ function onProductsLoadingError(request) {
 		return;
 	}
 
-	alert("Erör: " + request.statusText);
+	alert("Error: " + request.statusText);
 }
 
 /**
